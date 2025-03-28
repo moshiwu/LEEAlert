@@ -222,6 +222,9 @@ NS_ASSUME_NONNULL_BEGIN
 /** 显示  -> 格式: .LeeShow() */
 @property (nonatomic, copy, readonly) LEEConfig LeeShow;
 
+/** 设置是否调用makeKeyAndVisible，默认NO  */
+@property (nonatomic, copy, readonly) LEEConfigToBool LeeNeedMakeKeyAndVisible;
+
 @end
 
 @interface LEEBaseConfigModel(Presentation)

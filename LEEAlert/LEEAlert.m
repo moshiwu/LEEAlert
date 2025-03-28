@@ -103,6 +103,8 @@ typedef NS_ENUM(NSInteger, LEEBackgroundStyle) {
 
 @property (nonatomic, strong) LEEPresentation* modelPresentation;
 
+@property (nonatomic, assign) BOOL needMakeKeyAndVisible;
+
 @end
 
 @implementation LEEBaseConfigModel
@@ -846,6 +848,13 @@ typedef NS_ENUM(NSInteger, LEEBackgroundStyle) {
         return self;
     };
     
+}
+
+- (LEEConfigToBool)LeeNeedMakeKeyAndVisible {
+    return ^(BOOL value) {
+        self.needMakeKeyAndVisible = value;
+        return self;
+    };
 }
 
 #pragma mark LazyLoading
@@ -4123,8 +4132,10 @@ CGPathRef _Nullable LEECGPathCreateWithRoundedRect(CGRect bounds, CornerRadii co
         if (@available(iOS 13.0, *)) {
             [LEEAlert shareManager].leeWindow.overrideUserInterfaceStyle = self.config.modelUserInterfaceStyle;
         }
-        
-        [[LEEAlert shareManager].leeWindow makeKeyAndVisible];
+
+        if (self.config.needMakeKeyAndVisible) {
+            [[LEEAlert shareManager].leeWindow makeKeyAndVisible];
+        }
         
         self.isShowing = YES;
     }
